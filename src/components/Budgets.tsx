@@ -9,9 +9,10 @@ interface BudgetsProps {
   budgets: MonthlyBudget[];
   uid: string;
   transactions: Transaction[];
+  currency: string;
 }
 
-export default function Budgets({ budgets, uid, transactions }: BudgetsProps) {
+export default function Budgets({ budgets, uid, transactions, currency }: BudgetsProps) {
   const [limit, setLimit] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -71,7 +72,7 @@ export default function Budgets({ budgets, uid, transactions }: BudgetsProps) {
             <div className="space-y-2">
               <label className="text-sm font-bold text-slate-500 uppercase tracking-wider ml-1">Límite Mensual</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">{currency}</span>
                 <input 
                   type="number" 
                   placeholder={activeBudget ? activeBudget.limit.toString() : "0.00"} 
@@ -103,13 +104,13 @@ export default function Budgets({ budgets, uid, transactions }: BudgetsProps) {
                 <div>
                   <p className="text-slate-500 text-sm">Has gastado</p>
                   <p className={`text-4xl font-bold ${isOver ? 'text-rose-600' : 'text-slate-900'}`}>
-                    ${monthlyExpenses.toLocaleString()}
+                    {currency}{monthlyExpenses.toLocaleString()}
                   </p>
                 </div>
                 <div className="text-right">
                   <p className="text-slate-500 text-sm">De un total de</p>
                   <p className="text-xl font-semibold text-slate-600">
-                    ${activeBudget.limit.toLocaleString()}
+                    {currency}{activeBudget.limit.toLocaleString()}
                   </p>
                 </div>
               </div>
@@ -132,8 +133,8 @@ export default function Budgets({ budgets, uid, transactions }: BudgetsProps) {
                 {isOver ? <AlertCircle size={20} /> : <CheckCircle2 size={20} />}
                 <p className="text-sm font-bold">
                   {isOver 
-                    ? `¡Atención! Has superado tu presupuesto por $${(monthlyExpenses - activeBudget.limit).toLocaleString()}.`
-                    : `Vas por buen camino. Te quedan $${(activeBudget.limit - monthlyExpenses).toLocaleString()} antes de alcanzar el límite.`}
+                    ? `¡Atención! Has superado tu presupuesto por ${currency}${(monthlyExpenses - activeBudget.limit).toLocaleString()}.`
+                    : `Vas por buen camino. Te quedan ${currency}${(activeBudget.limit - monthlyExpenses).toLocaleString()} antes de alcanzar el límite.`}
                 </p>
               </div>
             </div>

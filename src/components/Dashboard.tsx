@@ -20,10 +20,10 @@ interface DashboardProps {
   goals: SavingsGoal[];
   budgets: MonthlyBudget[];
   settings: UserSettings | null;
+  currency: string;
 }
 
-export default function Dashboard({ transactions, goals, budgets, settings }: DashboardProps) {
-  const currency = settings?.currency || '$';
+export default function Dashboard({ transactions, goals, budgets, settings, currency }: DashboardProps) {
 
   const income = transactions
     .filter(t => t.type === 'income')

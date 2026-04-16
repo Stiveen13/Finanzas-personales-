@@ -152,6 +152,18 @@ export default function App() {
     );
   }
 
+  const handleCurrencyChange = async (newCurrency: string) => {
+    if (!user) return;
+    try {
+      const userRef = doc(db, 'users', user.uid);
+      await setDoc(userRef, { currency: newCurrency }, { merge: true });
+    } catch (err) {
+      console.error("Error updating currency:", err);
+    }
+  };
+
+  const currencySymbol = settings?.currency === 'EUR' ? '€' : settings?.currency === 'COP' ? 'COP $' : '$';
+
   const tabs = [
     { id: 'dashboard', label: 'Resumen', icon: LayoutDashboard },
     { id: 'transactions', label: 'Transacciones', icon: ReceiptText },
@@ -186,6 +198,22 @@ export default function App() {
         </nav>
 
         <div className="mt-auto pt-6 border-t-2 border-slate-50">
+          <div className="px-2 mb-4">
+            <p className="text-[10px] font-bold text-brand-muted uppercase tracking-widest mb-2 px-2">Moneda</p>
+            <div className="flex gap-1 p-1 bg-slate-50 rounded-xl">
+              {['USD', 'EUR', 'COP'].map((curr) => (
+                <button
+                  key={curr}
+                  onClick={() => handleCurrencyChange(curr)}
+                  className={`flex-1 py-1.5 rounded-lg text-[10px] font-bold transition-all ${
+                    settings?.currency === curr ? 'bg-white shadow-sm text-brand-primary' : 'text-slate-400 hover:text-slate-600'
+                  }`}
+                >
+                  {curr}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="flex items-center gap-3 p-4 bg-slate-50 rounded-2xl mb-2">
             <img src={user.photoURL || ''} alt="" className="w-10 h-10 rounded-full border-2 border-white shadow-sm" />
             <div className="flex-1 min-w-0">
@@ -232,18 +260,21 @@ export default function App() {
                   goals={goals} 
                   budgets={budgets}
                   settings={settings}
+                  currency={currencySymbol}
                 />
               )}
               {activeTab === 'transactions' && (
                 <Transactions 
                   transactions={transactions} 
                   uid={user.uid}
+                  currency={currencySymbol}
                 />
               )}
               {activeTab === 'goals' && (
                 <Goals 
                   goals={goals} 
                   uid={user.uid}
+                  currency={currencySymbol}
                 />
               )}
               {activeTab === 'budgets' && (
@@ -251,6 +282,7 @@ export default function App() {
                   budgets={budgets} 
                   uid={user.uid}
                   transactions={transactions}
+                  currency={currencySymbol}
                 />
               )}
             </motion.div>

@@ -9,9 +9,10 @@ import { format } from 'date-fns';
 interface GoalsProps {
   goals: SavingsGoal[];
   uid: string;
+  currency: string;
 }
 
-export default function Goals({ goals, uid }: GoalsProps) {
+export default function Goals({ goals, uid, currency }: GoalsProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   
@@ -110,11 +111,11 @@ export default function Goals({ goals, uid }: GoalsProps) {
                 <div className="flex justify-between items-end">
                   <div>
                     <p className="text-[10px] text-brand-muted uppercase font-extrabold tracking-tight">Ahorrado</p>
-                    <p className="text-xl font-extrabold">${goal.currentAmount.toLocaleString()}</p>
+                    <p className="text-xl font-extrabold">{currency}{goal.currentAmount.toLocaleString()}</p>
                   </div>
                   <div className="text-right">
                     <p className="text-[10px] text-brand-muted uppercase font-extrabold tracking-tight">Objetivo</p>
-                    <p className="text-sm font-bold text-slate-400">${goal.targetAmount.toLocaleString()}</p>
+                    <p className="text-sm font-bold text-slate-400">{currency}{goal.targetAmount.toLocaleString()}</p>
                   </div>
                 </div>
 
@@ -137,13 +138,13 @@ export default function Goals({ goals, uid }: GoalsProps) {
                     onClick={() => updateGoalProgress(goal.id, goal.currentAmount, 50)}
                     className="flex-1 py-2 bg-slate-100 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors"
                   >
-                    +$50
+                    +{currency}50
                   </button>
                   <button 
                     onClick={() => updateGoalProgress(goal.id, goal.currentAmount, 100)}
                     className="flex-1 py-2 bg-slate-100 rounded-xl text-xs font-bold hover:bg-slate-200 transition-colors"
                   >
-                    +$100
+                    +{currency}100
                   </button>
                   <button 
                     onClick={() => {

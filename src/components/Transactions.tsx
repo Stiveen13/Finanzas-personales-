@@ -9,13 +9,14 @@ import { motion } from 'motion/react';
 interface TransactionsProps {
   transactions: Transaction[];
   uid: string;
+  currency: string;
 }
 
 const CATEGORIES = [
   'Comida', 'Transporte', 'Vivienda', 'Entretenimiento', 'Salud', 'Educación', 'Ropa', 'Otros', 'Salario', 'Freelance', 'Inversión'
 ];
 
-export default function Transactions({ transactions, uid }: TransactionsProps) {
+export default function Transactions({ transactions, uid, currency }: TransactionsProps) {
   const [isAdding, setIsAdding] = useState(false);
   const [loading, setLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -133,7 +134,7 @@ export default function Transactions({ transactions, uid }: TransactionsProps) {
                       {t.description || '-'}
                     </td>
                     <td className={`px-6 py-4 text-sm font-extrabold text-right whitespace-nowrap ${t.type === 'income' ? 'text-brand-secondary' : 'text-brand-text'}`}>
-                      {t.type === 'income' ? '+' : '-'}${t.amount.toLocaleString()}
+                      {t.type === 'income' ? '+' : '-'}{currency}{t.amount.toLocaleString()}
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button 
@@ -194,7 +195,7 @@ export default function Transactions({ transactions, uid }: TransactionsProps) {
               <div className="space-y-2">
                 <label className="text-sm font-bold text-slate-500 uppercase tracking-wider ml-1">Monto</label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">$</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-slate-400">{currency}</span>
                   <input 
                     type="number" 
                     step="0.01"
