@@ -1,0 +1,65 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  
+  --color-brand-bg: #F0F4FF;
+  --color-brand-primary: #6366F1;
+  --color-brand-secondary: #10B981;
+  --color-brand-accent: #F43F5E;
+  --color-brand-warning: #FBBF24;
+  --color-brand-text: #1E293B;
+  --color-brand-muted: #64748B;
+  --color-brand-border: #E2E8F0;
+}
+
+@layer base {
+  body {
+    @apply font-sans bg-brand-bg text-brand-text antialiased;
+  }
+}
+
+.card-finance {
+  @apply bg-white rounded-[24px] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)] border-none p-6;
+}
+
+.btn-primary {
+  @apply bg-brand-primary text-white px-6 py-3 rounded-2xl font-bold transition-all hover:brightness-110 active:scale-[0.98] disabled:opacity-50;
+}
+
+.btn-ghost {
+  @apply text-brand-muted px-4 py-2 rounded-xl font-semibold transition-colors hover:bg-slate-100 disabled:opacity-50;
+}
+
+input, select {
+  @apply border-2 border-brand-border bg-white rounded-2xl px-4 py-3 focus:border-brand-primary focus:ring-0 outline-none transition-all;
+}
+
+.nav-item-active {
+  @apply bg-brand-primary text-white shadow-lg shadow-brand-primary/20;
+}
+
+.stat-card {
+  @apply bg-white p-6 rounded-[24px] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.05)];
+}
+
+.stat-label {
+  @apply text-[13px] font-bold uppercase tracking-wider text-brand-muted mb-2 block;
+}
+
+.stat-value {
+  @apply text-[28px] font-extrabold text-brand-text;
+}
+
+.budget-pill {
+  @apply inline-block px-3 py-1 rounded-full text-[12px] font-bold mt-2;
+}
+
+.pill-warning {
+  @apply bg-[#FEF3C7] text-[#92400E];
+}
+
+.pill-ok {
+  @apply bg-[#D1FAE5] text-[#065F46];
+}

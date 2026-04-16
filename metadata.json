@@ -1,0 +1,6 @@
+{
+  "name": "Finanzas Pro",
+  "description": "Una aplicación integral para gestionar ingresos, gastos, ahorros y presupuestos mensuales con persistencia en Firebase.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
